@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Lbinga currency</title>
+    </head>
+    <body>
+    <h1>You are not signed-in!</h1>
+    <h1>You'll be redirected to login with Discord after <span id="sec">7</span> seconds.</h1>
+    </body>
+    <script type="text/javascript">
+var seconds = 7;
+var foo;
+
+function updateSecs() {
+    document.getElementById("sec").innerHTML = seconds;
+    seconds--;
+    if (seconds == -1) {
+        clearInterval(foo);
+        document.location.href = '/login';
+    }
+}
+
+function countdownTimer() {
+    foo = setInterval(function () {
+        updateSecs()
+    }, 1000);
+}
+
+countdownTimer();
+    </script>
+</html>

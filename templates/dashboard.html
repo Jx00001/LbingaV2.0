@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>{{user_name}} - Profile</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>  
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>  
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <h1>Welcome to Lbinga $</h1>
+        <span style="position:absolute;top:1%;left:77%"><strong><big>{{user_name}}</big></strong></span>
+        <p>User Id : {{user_id}}
+        <img src='{{user_avatar}}' />
+        <p>User Wallet = {{user_lbinga}}฿
+        <p>User Rank  : #{{user_rank}}
+        <p>User Level : {{user_lvl}}
+        <p>User xp    : {{user_xp}}
+        <hr>
+        <form action="" method="POST">
+            <input type="submit" name="button" value="daily">
+		    <input type="submit" name="button" value="message">
+            <input type="submit" name="button" value="logout" style="position:absolute;top:1%;left:92%">
+        </form>
+        <a href="/top"><button>Top 3</button></a>
+        <a href="/history"><button>History</button></a>
+        {% block content %}
+        <div class="container">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% block page_content %}{% endblock %}
+        </div>
+        {% endblock %}
+        <hr>
+        <h2>Send/Transfer binga to someone :</h2>
+        <form action="" method="POST">
+        <input type="text" placeholder="Target Wallet" name="send_to" id="user" required>
+            <script>
+$(document).ready(function(){
+  $("#user").on("input",
+    function(e){
+        let value = $("#user").val();
+        $.ajax({
+            method:"POST",
+            type:"POST",
+            url:"/livesuggest",
+            data:{ search: value},
+            success:function(res){
+                $("#user").autocomplete({source: res});},
+            error:function(er){
+                console.log(er);
+            }
+        });
+    });
+});
+
+</script>
+            <input type="number" placeholder="Value" name="value" required>
+            <input type="submit" name="button" value="send">
+        </form>
+        <hr>
+
+    </body>
+</html>

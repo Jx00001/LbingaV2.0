@@ -1,8 +1,6 @@
 discord==1.7.3
 Pillow == 8.4.0
 Quart_Discord == 2.1.4
-discord_components == 2.1.2
 discord_ext_forms == 3.0.3
-discord_py_slash_command == 3.0.3
 quart == 0.18.0
 requests == 2.27.1

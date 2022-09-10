@@ -3,9 +3,9 @@ from discord.ext import commands, tasks
 from pickle import dump, load, HIGHEST_PROTOCOL
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 from urllib.request import urlretrieve, install_opener, build_opener
-from discord_components import DiscordComponents
-from discord_slash.utils.manage_components import create_button, create_actionrow
-from discord_slash.model import ButtonStyle
+#from discord_components import DiscordComponents
+#from discord_slash.utils.manage_components import create_button, create_actionrow
+#from discord_slash.model import ButtonStyle
 from quart import Quart, redirect, url_for, session, request, render_template, flash, jsonify
 from quart_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
 from datetime import datetime
@@ -250,7 +250,7 @@ async def on_ready():
         # WorkEmbed = discord.Embed(title="Work System", description='Click **Claim** to claim your Work reward', color=0x00ff00)
         # await discord.utils.get(bot.get_all_channels(), guild__name=server.name, id=1003399557134159882).send(embed=WorkEmbed, components=[create_actionrow(*[create_button(style=ButtonStyle.green,label="Claim"), create_button(style=ButtonStyle.grey,label="Work"),])])
 
-        DiscordComponents(bot)
+#        DiscordComponents(bot)
         print("Bot is Online !")
 
 @bot.event
@@ -442,61 +442,61 @@ async def dev_edit(ctx, arg1, arg2, arg3):
                 await ctx.send("something went wrong")
         else: await ctx.send(f"user {arg1} does not exist")
 
-@bot.event
-async def on_button_click(click):
-    try:
-        if click.component.label.startswith("Daily"):
-            user = click.author.id
-            user = globals()["User_" + str(user)]
-            if user.is_claimed == False:
-                user.is_claimed = True
-                await click.respond(type=4, embed=discord.Embed(title="Daily Bonus", description=f"**{click.author.name}** You have claimed **{user.daily_claim()}฿** as a Daily Bonus <:binga:958417539438895135>", color=0x00ff00))
-            else: await click.respond(type=4, embed=discord.Embed(title="Daily Bonus", description=f"**{click.author.name}** You already claimed your daily Bonus ! :x:", color=0xba0000))
-        elif click.component.label.startswith("Claim"):
-            user = globals()["User_" + str(click.author.id)]
-            if user.mission == 1:
-                total_invites = 0
-                for i in await server.invites():
-                    if i.inviter == click.author:
-                        total_invites += i.uses
-                pure_invites = total_invites - user.invites
-                if pure_invites >= 3:
-                    if user.xp >= 500:
-                        user.lbinga += 30
-                        user.invites = user.invites + pure_invites
-                        user.mission += 1
-                        await click.respond(type=4, embed=discord.Embed(title="Work System", description="You've been Rewarded **30฿** for Completing **Mission #1** <:binga:958417539438895135>", color=0x00ff00))
-                    else: await click.respond(type=4, embed=discord.Embed(title="Work System", description=f"**{click.author}** You need to gain at least 500 xp under 3 days. :x:", color=0xba0000))
-                else: await click.respond(type=4, embed=discord.Embed(title="Work System", description=f"**{click.author}** You need to invite at least {3-pure_invites} people to claim your reward. :x:", color=0xba0000))
-            elif user.mission == 2:
-                support = await server.create_text_channel(f'mission#2_{click.author.id}')
-                await support.set_permissions(server.default_role, view_channel=False, send_messages=False, read_message_history=False, read_messages=False)
-                await support.set_permissions(click.author, view_channel=True, send_messages=True, read_message_history=True, read_messages=True, attach_files=True, )
-                await support.send(f'<@&930099848944959598> the User "<@{click.author.id}>" is requesting a mission#2 verification. !')
-                globals()["cmd_channels"].append(support.id)
-                user.mission += 1
-                check = lambda m: m.content == "close." and m.channel == support
-                msg = await bot.wait_for('message', check=check)
-                await support.delete()
-                globals()["cmd_channels"].remove(support.id)
-            else: await click.respond(type=4, embed=discord.Embed(title="Work System", description=f"**{click.author}** We don't have any Work for you currently. :x:", color=0xba0000))
+# @bot.event
+# async def on_button_click(click):
+#     try:
+#         if click.component.label.startswith("Daily"):
+#             user = click.author.id
+#             user = globals()["User_" + str(user)]
+#             if user.is_claimed == False:
+#                 user.is_claimed = True
+#                 await click.respond(type=4, embed=discord.Embed(title="Daily Bonus", description=f"**{click.author.name}** You have claimed **{user.daily_claim()}฿** as a Daily Bonus <:binga:958417539438895135>", color=0x00ff00))
+#             else: await click.respond(type=4, embed=discord.Embed(title="Daily Bonus", description=f"**{click.author.name}** You already claimed your daily Bonus ! :x:", color=0xba0000))
+#         elif click.component.label.startswith("Claim"):
+#             user = globals()["User_" + str(click.author.id)]
+#             if user.mission == 1:
+#                 total_invites = 0
+#                 for i in await server.invites():
+#                     if i.inviter == click.author:
+#                         total_invites += i.uses
+#                 pure_invites = total_invites - user.invites
+#                 if pure_invites >= 3:
+#                     if user.xp >= 500:
+#                         user.lbinga += 30
+#                         user.invites = user.invites + pure_invites
+#                         user.mission += 1
+#                         await click.respond(type=4, embed=discord.Embed(title="Work System", description="You've been Rewarded **30฿** for Completing **Mission #1** <:binga:958417539438895135>", color=0x00ff00))
+#                     else: await click.respond(type=4, embed=discord.Embed(title="Work System", description=f"**{click.author}** You need to gain at least 500 xp under 3 days. :x:", color=0xba0000))
+#                 else: await click.respond(type=4, embed=discord.Embed(title="Work System", description=f"**{click.author}** You need to invite at least {3-pure_invites} people to claim your reward. :x:", color=0xba0000))
+#             elif user.mission == 2:
+#                 support = await server.create_text_channel(f'mission#2_{click.author.id}')
+#                 await support.set_permissions(server.default_role, view_channel=False, send_messages=False, read_message_history=False, read_messages=False)
+#                 await support.set_permissions(click.author, view_channel=True, send_messages=True, read_message_history=True, read_messages=True, attach_files=True, )
+#                 await support.send(f'<@&930099848944959598> the User "<@{click.author.id}>" is requesting a mission#2 verification. !')
+#                 globals()["cmd_channels"].append(support.id)
+#                 user.mission += 1
+#                 check = lambda m: m.content == "close." and m.channel == support
+#                 msg = await bot.wait_for('message', check=check)
+#                 await support.delete()
+#                 globals()["cmd_channels"].remove(support.id)
+#             else: await click.respond(type=4, embed=discord.Embed(title="Work System", description=f"**{click.author}** We don't have any Work for you currently. :x:", color=0xba0000))
 
-        elif click.component.label.startswith("Work"):
-            user = globals()["User_" + str(click.author.id)]
-            if user.mission == 1:
-                await click.respond(type=4, embed=discord.Embed(title="Work System", description="-**Mission #1**-\nYour goal is to invite three people to the discord server and earn up to 500 xp under 3 days.", color=0xba0000))
-            elif user.mission == 2:
-                m2 = discord.Embed(title="Work System", description="**Tasks :**")
-                m2.add_field(name="#1", value="Follow us on instagram.", inline=False)
-                m2.add_field(name="#2", value="Share instagram story.", inline=False)
-                m2.add_field(name="#3", value="Follow us on twitter.", inline=False)
-                m2.add_field(name="#4", value="Tag 3 people in our last post on instagarm.", inline=False)
-                m2.set_footer(text="Notice : You should prove these actions with screenshots, when you're done click claim to request a screenshot verification.")
-                await click.respond(type=4, embed=m2)
-            else:
-                await click.respond(type=4, embed=discord.Embed(title="Work System", description="**Sorry currently we don't have any missions left, we'll inform you if we opened a new mission !**"))
-    except:
-        pass
+#         elif click.component.label.startswith("Work"):
+#             user = globals()["User_" + str(click.author.id)]
+#             if user.mission == 1:
+#                 await click.respond(type=4, embed=discord.Embed(title="Work System", description="-**Mission #1**-\nYour goal is to invite three people to the discord server and earn up to 500 xp under 3 days.", color=0xba0000))
+#             elif user.mission == 2:
+#                 m2 = discord.Embed(title="Work System", description="**Tasks :**")
+#                 m2.add_field(name="#1", value="Follow us on instagram.", inline=False)
+#                 m2.add_field(name="#2", value="Share instagram story.", inline=False)
+#                 m2.add_field(name="#3", value="Follow us on twitter.", inline=False)
+#                 m2.add_field(name="#4", value="Tag 3 people in our last post on instagarm.", inline=False)
+#                 m2.set_footer(text="Notice : You should prove these actions with screenshots, when you're done click claim to request a screenshot verification.")
+#                 await click.respond(type=4, embed=m2)
+#             else:
+#                 await click.respond(type=4, embed=discord.Embed(title="Work System", description="**Sorry currently we don't have any missions left, we'll inform you if we opened a new mission !**"))
+#     except:
+#         pass
 
 @bot.event
 async def on_message(ctx):

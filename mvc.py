@@ -684,6 +684,14 @@ async def api_out():
 async def bad(bad_url):
     return "Bad_URL"
 
-app.app_context()
-bot.loop.create_task(app.run_task(host="0.0.0.0", port=PORT))
-bot.run("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
+async def main():
+    async with bot:
+        bot.loop.create_task(app.run_task(host="0.0.0.0", port=PORT))
+        await bot.start("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
+
+asyncio.run(main())
+
+
+# app.app_context()
+# bot.loop.create_task(app.run_task(host="0.0.0.0", port=PORT))
+# bot.run("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")

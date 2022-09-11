@@ -13,6 +13,7 @@ from datetime import datetime
 from io import BytesIO
 from re import search
 from sys import setrecursionlimit
+import os
 
 setrecursionlimit(2000)
 
@@ -687,7 +688,7 @@ async def bad(bad_url):
 
 async def main():
     async with bot:
-        bot.loop.create_task(app.run_task(host="0.0.0.0", port=80))
+        bot.loop.create_task(app.run_task(host="0.0.0.0", port=int(os.environ.get("PORT", 5000))))
         await bot.start("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
 
 asyncio.run(main())

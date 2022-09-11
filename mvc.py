@@ -687,7 +687,7 @@ async def bad(bad_url):
 
 async def main():
     async with bot:
-        bot.loop.create_task(app.run_task(host="0.0.0.0", port=PORT))
+        bot.loop.create_task(app.run_task(host="0.0.0.0", port=80))
         await bot.start("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
 
 asyncio.run(main())

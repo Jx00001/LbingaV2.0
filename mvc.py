@@ -518,7 +518,7 @@ developer_keys = ["s1kefl@sk1s@we@akfr@mw0rk", "test"]
 app.config["DEBUG"] = True
 app.config["DISCORD_CLIENT_ID"] = 978422349860859905
 app.config["DISCORD_CLIENT_SECRET"] = "PoeYEjxX2HodCMxF23Vgei3NonQz2-Bd"
-app.config["DISCORD_REDIRECT_URI"] = "http://127.0.0.1/callback"
+app.config["DISCORD_REDIRECT_URI"] = "https://lbinga.herokuapp.com/callback"
 app.config["DISCORD_BOT_TOKEN"] = "OTc4NDIyMzQ5ODYwODU5OTA1.G313ZP.L4RgM6tCBORUH72-0ZRnt5eUi6-4ZKfoxe9_QE"
 
 discord_oath = DiscordOAuth2Session(app)
@@ -689,6 +689,7 @@ async def bad(bad_url):
 async def main():
     async with bot:
         bot.loop.create_task(app.run_task(host="0.0.0.0", port=int(os.environ.get("PORT", 5000))))
+        print("hahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         await bot.start("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
 
 asyncio.run(main())

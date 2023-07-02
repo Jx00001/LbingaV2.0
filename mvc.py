@@ -19,7 +19,6 @@ setrecursionlimit(2000)
 
 intents = discord.Intents.default()
 intents.members = True
-Dev_Token = "OTc4NDIyMzQ5ODYwODU5OTA1.GKZoIK.WNaObiwOKFa9J5MAatfRi-i2r40qaFNngXEsHY"
 bot = commands.Bot(intents=intents, command_prefix="$", description="Testiiiiiing", case_insensitive=True, help_command=None)
 opener = build_opener()
 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
@@ -130,7 +129,7 @@ async def rank_graph(user, ctx, rank_schema, per, progress):
         empty.paste(im, (240, 115))
         empty.save(f"temp/rank_{user.id}.png")
 
-def QuickSort(arr, p):
+def QuickSort(arr, p): # legacy, using sorted built-in function was suprisingly faster. that's a one
     elements = len(arr)
     if elements < 2: return arr
     if p == "b":
@@ -513,13 +512,13 @@ async def on_message(ctx):
             await bot.get_channel(1003399587710640178).send(f"Mbrok <@{ctx.author.id}>, You've reached level {user.lvl}! You've rewarded 10 binga's")
 
 app = Quart(__name__)
-app.secret_key = b"s1kefl@sk1s@we@akfr@mw0rk"
+app.secret_key = b""
 developer_keys = ["s1kefl@sk1s@we@akfr@mw0rk", "test"]
 app.config["DEBUG"] = True
-app.config["DISCORD_CLIENT_ID"] = 978422349860859905
-app.config["DISCORD_CLIENT_SECRET"] = "PoeYEjxX2HodCMxF23Vgei3NonQz2-Bd"
+app.config["DISCORD_CLIENT_ID"] = 
+app.config["DISCORD_CLIENT_SECRET"] = "-"
 app.config["DISCORD_REDIRECT_URI"] = "https://lbinga.herokuapp.com/callback"
-app.config["DISCORD_BOT_TOKEN"] = "OTc4NDIyMzQ5ODYwODU5OTA1.G313ZP.L4RgM6tCBORUH72-0ZRnt5eUi6-4ZKfoxe9_QE"
+app.config["DISCORD_BOT_TOKEN"] = ""
 
 discord_oath = DiscordOAuth2Session(app)
 
@@ -689,12 +688,10 @@ async def bad(bad_url):
 async def main():
     async with bot:
         bot.loop.create_task(app.run_task(host="0.0.0.0", port=int(os.environ.get("PORT", 5000))))
-        print("hahaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        await bot.start("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
+        await bot.start("expired token")
 
 asyncio.run(main())
 
 
 # app.app_context()
 # bot.loop.create_task(app.run_task(host="0.0.0.0", port=PORT))
-# bot.run("OTc4NDIyMzQ5ODYwODU5OTA1.GqIJf5.13TcfQkQcFtbICWPh_uNt-5Mqf28Z-aViKE5Fw")
